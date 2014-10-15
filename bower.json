@@ -1,0 +1,46 @@
+{
+  "name": "geoportal-wupp",
+  "version": "0.0.0",
+  "homepage": "https://github.com/cismet/geoportal-wupp",
+  "authors": [
+    "Daniel Meiers <daniel.meiers@cismet.de>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.2.25",
+    "bootstrap": "3.2.0",
+    "cids-node-path-widget": "0.1.4",
+    "cids-node-list-widget": "0.1.3",
+    "css-browser-selector": "*",
+    "jquery": "2.1.1",
+    "font-awesome": "4.2.0",
+    "angular-animate": "1.2.25",
+    "angular-route": "1.2.25",
+    "leaflet": "0.7.3",
+    "leaflet-plugins": "1.2.0",
+    "angular-leaflet-directive": "0.7.8",
+    "proj4leaflet": "0.7.0",
+    "proj4": "1.3.4",
+    "leaflet.draw": "~0.2.3",
+    "leaflet-minimap": "~1.0.0",
+    "Leaflet.MagnifyingGlass": "git@github.com:bbecquet/Leaflet.MagnifyingGlass.git#leaflet-0.7.2",
+    "L.GeoSearch": "git@github.com:smeijer/L.GeoSearch.git#9ead73033b5678f570ae6844b39a53d14cbc22b4",
+    "leaflet.fullscreen": "~1.1.3",
+    "Leaflet.buffer": "git@github.com:skeate/Leaflet.buffer.git#0.1.0",
+    "jsts": "~0.14.0",
+    "Leaflet.StyleEditor": "~0.1.3",
+    "Leaflet.StyledLayerControl": "git@github.com:davicustodio/Leaflet.StyledLayerControl.git#39d09d8109bdeaa16bd45d92e0410072343f2b4f"
+  },
+  "resolutions": {
+    "bootstrap": "3.2.0"
+  }
+}
