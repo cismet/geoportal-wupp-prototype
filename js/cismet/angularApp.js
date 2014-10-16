@@ -8,7 +8,8 @@ angular.module('de.cismet.smartAdmin', [
     'de.cismet.smartAdmin.services',
     'de.cismet.smartAdmin.controllers',
     'de.cismet.smartAdmin.directives',
-    'leaflet-directive'
+    'leaflet-directive',
+    'mgcrea.ngStrap'
 ]).config(function ($routeProvider) {
     $routeProvider.when('/geoportal',{
         templateUrl:'partials/dashboard.html',

@@ -9,300 +9,165 @@ angular.module(
 
             $scope.layerConf = [
                 {
+                    name: "OSM",
+                    baselayers: {
+                        osm: {
+                            name: 'OpenStreetMap',
+                            url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                            type: 'xyz'
+                        }
+                    }
+                }, {
                     name: 'Stadtplan',
-                    layerGroups: [{
-                            groupName: "Stadtplan",
-                            expanded: true,
-                            layers: {
-                                "Amtlicher Stadtplan": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5})
-                            }
-                        }
-                    ]
-                }, {
-                    name: 'Basisdaten',
-                    layerGroups: [
-                        {
-                            groupName: "Liegenschaftskarte",
-                            expanded: true,
-                            layers: {
-                                "Flurkarte (farbig)": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'alf', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Flurkarte (Graustufen)": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'algw', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Schätzungskarte(farbig)": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'albsf', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Schätzungskarte (Graustufen)": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'albsgw', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Amtlicher Stadplan DGK Graustufen": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan_grau', format: 'image/png', continuousWorld: true, opacity: 0.5})
+                    baselayers: {
+                        stadtplan: {
+                            name: 'Stadtplan',
+                            type: 'wms',
+                            url: 'http://geoportal.wuppertal.de:8083/deegree/wms',
+                            visible: true,
+                            layerOptions: {
+                                layers: 'R102:stadtplan_grau',
+                                format: 'image/png',
+                                //without continous world nothing is displayed No idea why..
+                                continuousWorld: true,
                             }
                         },
-                        {
-                            groupName: "Digitale Grundkarte",
-                            expanded: true,
-                            layers: {
-                                "DGK Blattschnitt": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Stadtgrenze": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'admin:stadtgrenz', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Hausnummern": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtgrundkarte_hausnr', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "DGK Grundriss graustufen": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:DGK:schwarz', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "DGK Grundriss schwarz": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:DGK:grau', format: 'image/png', continuousWorld: true, opacity: 0.5})
+                    }
+                }, {
+                    name: 'Stadtplan mit Luftbild',
+                    baselayers: {
+                        stadtplan: {
+                            name: 'Stadtplan',
+                            type: 'wms',
+                            url: 'http://geoportal.wuppertal.de:8083/deegree/wms',
+                            visible: true,
+                            layerOptions: {
+                                layers: 'R102:stadtplan_grau',
+                                format: 'image/png',
+                                //without continous world nothing is displayed No idea why..
+                                continuousWorld: true,
+                            }
+                        }
+                    },
+                    overlays: {
+                        Luftbild: {
+                            name: 'Luftbild',
+                            type: 'wms',
+                            url: 'http://geoportal.wuppertal.de:8083/deegree/wms',
+                            visible: true,
+                            layerOptions: {
+                                layers: 'R102:luftbild2014',
+                                format: 'image/png',
+                                //without continous world nothing is displayed No idea why..
+                                continuousWorld: true,
+                                opacity: 0.8
+                            }
+                        }
+                    }
+                }, {
+                    name: 'Stadtplan mit Gebietsgliederungen',
+                    baselayers: {
+                        stadtplan: {
+                            name: 'Stadtplan',
+                            type: 'wms',
+                            url: 'http://geoportal.wuppertal.de:8083/deegree/wms',
+                            visible: true,
+                            layerOptions: {
+                                layers: 'R102:stadtplan_grau',
+                                format: 'image/png',
+                                //without continous world nothing is displayed No idea why..
+                                continuousWorld: true,
+                            }
+                        }
+                    },
+                    overlays: {
+                        bezirke: {
+                            name: 'Bezirke',
+                            type: 'wms',
+                            url: 'http://geoportal.wuppertal.de:8083/deegree/wms',
+                            visible: true,
+                            layerOptions: {
+                                layers: 'admin:stadtbezirke',
+                                format: 'image/png',
+                                //without continous world nothing is displayed No idea why..
+                                continuousWorld: true,
+                                opacity: 0.5
                             }
                         },
-                        {
-                            groupName: "Luftbildkarte",
-                            expanded: true,
-                            layers: {
-                                "DGK Blattschnitt": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Stadtgrenze": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Hausnummern": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "DGK Grundriss graustufen": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:DGK:grau', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "DGK Grundriss schwarz": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:DGK:schwarz', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "DGK Grundriss gelb": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:DGK:gelb', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Wuppertaler Orthofoto 2012": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:luftbild2012', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Wuppertaler Orthofoto 2010": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:luftbild2010', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Wuppertaler Orthofoto 2007": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:luftbild2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Wuppertaler Orthofoto 2005": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:luftbild2005', format: 'image/png', continuousWorld: true, opacity: 0.5})
-                            }
-                        },
-                        {
-                            groupName: "Urban Atlas",
-                            expanded: true,
-                            layers: {
-                                "Urban Atlas 2005-2007": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'urban', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "DGK Grundriss graustufen": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:DGK:grau', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "NRW Orthofoto": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'NRW:luftbild2005', format: 'image/png', continuousWorld: true, opacity: 0.5})
+                        quartiere: {
+                            name: 'Quartiere',
+                            type: 'wms',
+                            url: 'http://geoportal.wuppertal.de:8083/deegree/wms',
+                            visible: true,
+                            layerOptions: {
+                                layers: 'admin:quartiere',
+                                format: 'image/png',
+                                //without continous world nothing is displayed No idea why..
+                                continuousWorld: true,
+                                opacity: 0.5
                             }
                         }
-                    ]
-                }, {
-                    name: 'Gebietsgliederungen',
-                    layerGroups: [
-                        {
-                            groupName: "Stadtkarte",
-                            expanded: true,
-                            layers: {
-                                "Quartiere": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'admin:quartiere', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Stadtbezirke": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'admin:stadtbezirke', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Hausnummern": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtgrundkarte_hausnr', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Digitale Grundkarte graustufen": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:DGK:grau', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Amtlicher Stadtplan graustufen": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan_grau', format: 'image/png', continuousWorld: true, opacity: 0.5})
-                            }
-                        }
-                    ]
-                }, {
-                    name: 'Umweltdaten',
-                    layerGroups: [
-                        {
-                            groupName: "Bodenbelastung",
-                            expanded: true,
-                            layers: {
-                                'DGK Grundriss Graustufen': L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                'Geschätzte Stoffgehalte Arsen': L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                'Geschätzte Stoffgehalte Benzo-a-pyren': L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                'Geschätzte Stoffgehalte Blei': L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                'Geschätzte Stoffgehalte Cadmium': L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                'Geschätzte Stoffgehalte Chrom': L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                'Geschätzte Stoffgehalte Kupfer': L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                'Geschätzte Stoffgehalte Nickel': L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                'Geschätzte Stoffgehalte Quecksilber': L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                'Geschätzte Stoffgehalte Zink': L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                'Vorsorgekarte Boden': L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                'Planhinweiskarte Boden': L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                'Amtlicher Stadtplan Graustufen': L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan_grau', format: 'image/png', continuousWorld: true, opacity: 0.5})
-                            }
-                        }, {
-                            groupName: "Radon-Potentialkarte",
-                            expanded: true,
-                            layers: {
-                                "Radon Potenzialkarte": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Amtlicher Stadtplan Graustufen": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5})
-                            }
-                        }, {
-                            groupName: "Gewässer",
-                            expanded: true,
-                            layers: {
-                                "Quellen": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Gewässernamen": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Gewässernetz": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Stationierung": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Digitale Grundkarte": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Stillgewässer": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Biotope": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Amtlicher Stadtplan Graustufen": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan_grau', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                            }
-                        }, {
-                            groupName: "Gewässer Strukturgüte",
-                            expanded: true,
-                            layers: {
-                                "Einleitungen": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Querbauten": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Strukturgüte": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Digitale Grundkarte": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Amtlicher Stadtplan graustufen": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan_grau', format: 'image/png', continuousWorld: true, opacity: 0.5})
-                            }
-                        }, {
-                            groupName: "Gewässer Massnahmen",
-                            expanded: true,
-                            layers: {
-                                "Entfernung von Querbauten": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Etwicklungsziele": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Maßnahmen am Gewässer": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Digitale Grundkarte": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Maßnahmen in der Aue": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan2007', format: 'image/png', continuousWorld: true, opacity: 0.5}),
-                                "Amtlicher Stadtplan graustufen": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan_grau', format: 'image/png', continuousWorld: true, opacity: 0.5})
-                            }
-                        }, {
-                            groupName: "Umgebungslärm",
-                            expanded: true,
-                            layers: {
-                                "Amtlicher Stadtplan graustufen": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan_grau', format: 'image/png', continuousWorld: true, opacity: 0.5})
-                            }
-                        }, {
-                            groupName: "Klima",
-                            expanded: true,
-                            layers: {
-                                "Amtlicher Stadtplan graustufen": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan_grau', format: 'image/png', continuousWorld: true, opacity: 0.5})
-                            }
-                        }, {
-                            groupName: "Luftreinhaltung",
-                            expanded: true,
-                            layers: {
-                                "Amtlicher Stadtplan graustufen": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan_grau', format: 'image/png', continuousWorld: true, opacity: 0.5})
-                            }
-                        }, {
-                            groupName: "Biotope",
-                            expanded: true,
-                            layers: {
-                                "Amtlicher Stadtplan graustufen": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan_grau', format: 'image/png', continuousWorld: true, opacity: 0.5})
-                            }
-                        }, {
-                            groupName: "Solarstrom",
-                            expanded: true,
-                            layers: {
-                                "Amtlicher Stadtplan graustufen": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan_grau', format: 'image/png', continuousWorld: true, opacity: 0.5})
-                            }
-                        }, {
-                            groupName: "Solarwärme",
-                            expanded: true,
-                            layers: {
-                                "Amtlicher Stadtplan graustufen": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan_grau', format: 'image/png', continuousWorld: true, opacity: 0.5})
-                            }
-                        }
-                    ]
-                }, {
-                    name: 'Verkehrsdaten',
-                    layerGroups: [
-                        {
-                            groupName: "Stadtkarte",
-                            expanded: true,
-                            layers: {
-                                "Amtlicher Stadtplan graustufen": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan_grau', format: 'image/png', continuousWorld: true, opacity: 0.5})
-                            }
-                        }
-                    ]
-                }, {
-                    name: 'Planungsdaten',
-                    layerGroups: [
-                        {
-                            groupName: "Stadtkarte",
-                            expanded: true,
-                            layers: {
-                                "Amtlicher Stadtplan graustufen": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan_grau', format: 'image/png', continuousWorld: true, opacity: 0.5})
-                            }
-                        }
-                    ]
-                }, {
-                    name: 'Infrastruktur',
-                    layerGroups: [
-                        {
-                            groupName: "Stadtkarte",
-                            expanded: true,
-                            layers: {
-                                "Amtlicher Stadtplan graustufen": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan_grau', format: 'image/png', continuousWorld: true, opacity: 0.5})
-                            }
-                        }
-                    ]
-                }, {
-                    name: 'Freizeit',
-                    layerGroups: [
-                        {
-                            groupName: "Stadtkarte",
-                            expanded: true,
-                            layers: {
-                                "Amtlicher Stadtplan graustufen": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan_grau', format: 'image/png', continuousWorld: true, opacity: 0.5})
-                            }
-                        }
-                    ]
-                }, {
-                    name: 'Thematische Karten',
-                    layerGroups: [
-                        {
-                            groupName: "Stadtkarte",
-                            expanded: true,
-                            layers: {
-                                "Amtlicher Stadtplan graustufen": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan_grau', format: 'image/png', continuousWorld: true, opacity: 0.5})
-                            }
-                        }
-                    ]
+                    }
                 },
             ];
-
             //init styled layer config
-            $scope.selectedLayerconf = $scope.layerConf[0];
+            //start with osm as defaul layer
+            $scope.layers = {
+                    name: "OSM",
+                    baselayers: {
+                        osm: {
+                            name: 'OpenStreetMap',
+                            url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                            type: 'xyz'
+                        },
+                    }
+                };
             $scope.updateSelectedLayerConf = function (index) {
-                $scope.selectedLayerconf = $scope.layerConf[index];
-            }
-            $scope.$watch('selectedLayerconf', function () {
-                var layerGroups;
-                if ($scope.selectedLayerconf) {
+                $scope.selectedLayers = $scope.layerConf[index];
+                //delete the base layers
 
-                    layerGroups = $scope.selectedLayerconf.layerGroups;
-                    leafletData.getMap().then(function (map) {
-
-                        var options = {
-                            container_width: "300px",
-                            group_maxHeight: "80px",
-                            //container_maxHeight : "350px", 
-                            exclusive: false
-                        };
-                        if ($scope.styledLayerControl) {
-                            map.removeControl($scope.styledLayerControl);
-                        }
-                        $scope.styledLayerControl = L.Control.styledLayerControl([{
-                                groupName: "Hintergrundkarte",
-                                expanded: true,
-                                layers: {
-                                    "Hintergrundkarte": L.tileLayer.wms('http://geoportal.wuppertal.de:8083/deegree/wms', {layers: 'R102:stadtplan_grau', format: 'image/png', continuousWorld: true, opacity: 1})
-                                }
-                            }
-                        ], layerGroups, options);
-                        map.addControl($scope.styledLayerControl);
-                        //since we use angular leaflet directive we must bind also the new layer config to this directive...
-                        $scope.layers = {
-                            baselayers: {
-                                layer: {
-                                    name: 'Stadtplan',
-                                    type: 'wms',
-                                    url: 'http://geoportal.wuppertal.de:8083/deegree/wms',
-                                    visible: true,
-                                    layerOptions: {
-                                        layers: 'R102:stadtplan_grau',
-                                        format: 'image/png',
-                                        //without continous world nothing is displayed No idea why..
-                                        continuousWorld: true,
-                                    }
-                                }
-                            },
-                            overlayLayers: layerGroups
-                        };
-                    });
-
+                for(var layer in $scope.layers.baselayers){
+                    delete $scope.layers.baselayers[layer];
                 }
-            });
+                for(var layer in $scope.layers.overlays){
+                    delete $scope.layers.overlays[layer];
+                }
+                
+                for(var layer in $scope.selectedLayers.baselayers){
+                    $scope.layers.baselayers[layer] = Object.create($scope.selectedLayers.baselayers[layer]);
+                }
+                if(!$scope.layers.overlays){
+                    $scope.layers.overlays={};
+                }
+                for(var layer in $scope.selectedLayers.overlays){
+                    $scope.layers.overlays[layer] = Object.create($scope.selectedLayers.overlays[layer]);
+                }
+                
+                leafletData.getMap().then(function (map) {
+                    var center = map.getCenter();
+                    if ( $scope.selectedLayers.name === 'OSM') {
+                        map.options.crs = L.CRS.EPSG3857;
+                        map.options.maxZoom = 19;
+                        $scope.center = {
+                            lat: center.lat,
+                            lng: center.lng,
+                            zoom: 18
+                        };
+                    } else {
+                        map.options.maxZoom = 14;
+                        map.options.crs = $scope.EPSG25832;
+                        $scope.center = {
+                            lat: center.lat,
+                            lng: center.lng,
+                            zoom: 12
+                        };
+                    }
 
-            $scope.homeBoundingBox = {
-                lat: 0,
-                lng: 0,
-                zoom: 1
+                });
             };
-
+            
             //set EPSG:25832 for the map....
-            $scope.crs = new L.Proj.CRS('EPSG:25832', '+proj=utm +zone=32 +ellps=GRS80 +units=m +no_defs', {
+            $scope.EPSG25832 = new L.Proj.CRS('EPSG:25832', '+proj=utm +zone=32 +ellps=GRS80 +units=m +no_defs', {
                 transformation: new L.Transformation(1, 0, -1, 0),
                 // no idea what these resolutions mean
                 resolutions: [
@@ -312,7 +177,21 @@ angular.module(
             });
 
 
-            // this prevents the map to be panned out of wupp scope. but with zomming we can still produce non usable maps..
+            //coordinates of the rathous in wupp
+            $scope.center = {
+                lat: 51.259681,
+                lng: 7.146370,
+                zoom: 12
+            };
+
+            $scope.goToHome = function () {
+                $scope.center = {
+                    lat: 51.259681,
+                    lng: 7.146370,
+                    zoom: 12
+                };
+            };
+
             $scope.maxBounds = {
                 southWest: {
                     lng: 6.9,
@@ -324,45 +203,30 @@ angular.module(
                 }
             };
 
-            $scope.showPointInMap = function () {
+            //go to point feature
+            $scope.popOverItem = {
+            };
+            $scope.gotToPoint = function (event) {
 
                 leafletData.getMap().then(function (map) {
                     var transformedPoint = proj4('EPSG:25832', 'WGS84', {
-                        'x': parseFloat($scope.coordX),
-                        'y': parseFloat($scope.coordY)
+                        'x': parseFloat($scope.popOverItem.x),
+                        'y': parseFloat($scope.popOverItem.x)
                     });
 
                     L.marker([transformedPoint.y, transformedPoint.x]).addTo(map)
-                        map.setZoomAround(new L.LatLng(transformedPoint.y, transformedPoint.x), 10);
+                    map.setZoomAround(new L.LatLng(transformedPoint.y, transformedPoint.x), 10);
                 });
-            }
+            };
 
             //options for the map
             $scope.defaults = {
                 scrollWheelZoom: true,
                 maxZoom: 14,
-                minZoom: 1,
+                minZoom: 0,
 //                crs: L.CRS.EPSG4326
-                crs: $scope.crs
-            };
-
-            //initial layer config...
-            $scope.baseLayer = {
-                name: 'Stadtplan',
-                type: 'wms',
-                url: 'http://geoportal.wuppertal.de:8083/deegree/wms',
-                visible: true,
-                layerOptions: {
-                    layers: 'R102:stadtplan_grau',
-                    format: 'image/png',
-                    //without continous world nothing is displayed No idea why..
-                    continuousWorld: true,
-                }
-            };
-            $scope.layers = {
-                baselayers: {
-                    'layer': $scope.baseLayer
-                }
+//                crs: $scope.EPSG25832,
+//                detectRetina: true
             };
 
             // initialize the draw plugin
@@ -424,6 +288,7 @@ angular.module(
                     continuousWorld: true,
                     opacity: 0.5
                 });
+                map.options.crs = $scope.EPSG25832;
                 var miniMap = new L.Control.MiniMap(
                     layer,
                     {
@@ -518,7 +383,9 @@ angular.module(
                     forcePseudoFullscreen: true // force use of pseudo full screen even if full screen API is available, default false
                 }).addTo(map);
             });
-
+            $timeout(function () {
+                $scope.updateSelectedLayerConf(0);
+            }, 500)
         }
 
     ]
